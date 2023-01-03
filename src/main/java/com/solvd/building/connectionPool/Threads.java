@@ -8,7 +8,6 @@ public class Threads {
         Thread t1 = new Thread(new Threads().new RunnableImpl());
         t1.start();
     }
-
     private class RunnableImpl implements Runnable {
 
         public void run()

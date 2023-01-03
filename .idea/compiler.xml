@@ -13,4 +13,9 @@
       <module name="BuildHouse" target="19" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="BuildHouse" options="--add-exports jdk.javadoc/jdk.javadoc.internal.doclets.toolkit.util=ALL-UNNAMED" />
+    </option>
+  </component>
 </project>
