@@ -3,7 +3,7 @@ package com.solvd.building.elements;
 import com.solvd.building.interfaces.IBasement;
 import com.solvd.building.materials.Concrete;
 
-public class Basement extends Element implements IBasement {
+public class Basement extends Element<T> implements IBasement {
     private int parkingSpacesAvailable;
     private Concrete concrete;
     private int depth;

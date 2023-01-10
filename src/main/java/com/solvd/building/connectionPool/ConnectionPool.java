@@ -1,35 +1,48 @@
 package com.solvd.building.connectionPool;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
 
-    private static ConnectionPool instance;
-    private Connection connection;
+    private BlockingQueue<Connection> pool;
+    private int maxSize;
+    private int currentSize;
 
-    private ConnectionPool() {
-        // private constructor to prevent external instantiation
+    public ConnectionPool(int initialSize, int maxSize) {
+        pool = new LinkedBlockingQueue<>();
+        this.maxSize = maxSize;
+        currentSize = initialSize;
+        for (int i = 0; i < initialSize; i++) {
+            Connection connection = createConnection();
+            pool.offer(connection);
+        }
     }
 
-    public static synchronized ConnectionPool getInstance() {
-        if (instance == null) {
-            instance = new ConnectionPool();
+    public Connection getConnection() throws InterruptedException {
+        if (pool.isEmpty() && currentSize < maxSize) {
+            addConnections(1);
         }
-
-        return instance;
+        return pool.take();
     }
 
-    public Connection getConnection() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/mydatabase";
-            String username = "user";
-            String password = "password";
+    public void releaseConnection(Connection connection) throws InterruptedException {
+        pool.put(connection);
+    }
 
-            connection = DriverManager.getConnection(jdbcUrl, username, password);
+    public synchronized void addConnections(int numConnections) {
+        if (currentSize + numConnections > maxSize) {
+            numConnections = maxSize - currentSize;
         }
+        for (int i = 0; i < numConnections; i++) {
+            Connection connection = createConnection();
+            pool.offer(connection);
+        }
+        currentSize += numConnections;
+    }
 
-        return connection;
+    private Connection createConnection() {
+        return null;
     }
 }

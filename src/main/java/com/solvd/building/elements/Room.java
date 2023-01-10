@@ -1,9 +1,8 @@
 package com.solvd.building.elements;
 
-import com.solvd.building.elements.Element;
 import com.solvd.building.interfaces.IRoom;
 
-public class Room extends Element implements IRoom {
+public class Room extends Element<T> implements IRoom {
 
     private int floorNumber;
     private String design;

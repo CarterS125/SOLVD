@@ -17,7 +17,7 @@ public class Reflection {
 
         Constructor[] constructors = buildingClass.getDeclaredConstructors();
         Constructor constructor = constructors[0];
-        Element element = (Element) constructor.newInstance("wall", "roof", "floor", "room", "basement");
+        Element<T> element = (Element<T>) constructor.newInstance("wall", "roof", "floor", "room", "basement");
         for (Constructor c : constructors) {
             logger.info(String.valueOf(c));
         }

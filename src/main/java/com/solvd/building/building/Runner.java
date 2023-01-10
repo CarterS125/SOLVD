@@ -1,18 +1,22 @@
 package com.solvd.building.building;
 
-import com.solvd.building.elements.*;
+import com.solvd.building.LambdaInterfaces.ValidBuilderList;
+import com.solvd.building.LambdaInterfaces.ValidElement;
+import com.solvd.building.LambdaInterfaces.ValidMaterialList;
+import com.solvd.building.buildingstaff.Builder;
+import com.solvd.building.elements.Element;
 import com.solvd.building.exceptions.*;
+import com.solvd.building.materials.BuildingMaterial;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class Runner {
 
-    Logger logger = Logger.getLogger(Runner.class.getName());
+    static Logger logger = Logger.getLogger(Runner.class.getName());
 
-    public static <T> void main(String[] args) throws InvalidBuildingStaffSelection, InvalidBuilderSelection, InvalidElementSelection, InvalidToolSelection, InvalidMaterialChoice {
+    public static <T> void main(String[] args, Iterable<? extends Element<T>> elementList) throws InvalidBuildingStaffSelection, InvalidBuilderSelection, InvalidElementSelection, InvalidToolSelection, InvalidMaterialChoice {
 
         Building building = new Building("Palisades Apartments");
 
@@ -45,9 +49,7 @@ public class Runner {
             throw new InvalidToolSelection(message);
         }
 
-        Element Element = initializeElement();
-        ArrayList<Element> elementList = Building.getBuilderList;
-
+        Element<T> Element = initializeElement();
         Building b = new Building(material, builder, element, tool);
         Logger.getLogger(b.toString());
 
@@ -79,14 +81,14 @@ public class Runner {
         Building currentNode = BuildingInProduction.getFirst();
         while (currentNode.data != null) {
             try {
-                for (Element el : elementList) {
+                for (Element<T> el : elementList) {
                     el.processBuilding(currentNode.data, element);
                     el.printElement(element);
                 }
                 Logger.getLogger("***********END OF PROCESS FOR THE BUILDING************");
-            }catch (BuildingMaterialNotFoundException e) {
+            } catch (BuildingMaterialNotFoundException e) {
                 Logger.getLogger(e.getMessage());
-            }catch (BuilderNotAvailableException e) {
+            } catch (BuilderNotAvailableException e) {
                 Logger.getLogger(e.getMessage());
             }
             currentNode = currentNode.next;
@@ -94,27 +96,54 @@ public class Runner {
     }
 
 
-    static Element initializeElement() {
+    static <T> Element<T> initializeElement() {
 
-        ArrayList<Element> element = new ArrayList<>();
+        ArrayList<Element<T>> element = new ArrayList<>();
 
-        Element Element = new Element("wall");
+        Element<T> Element = new Element<T>("wall");
         element.add(Element);
 
-        Element = new Element("floor");
+        Element = new Element<T>("floor");
         element.add(Element);
 
-        Element = new Element("room");
+        Element = new Element<T>("room");
         element.add(Element);
 
-        Element = new Element("roof");
+        Element = new Element<T>("roof");
         element.add(Element);
 
-        Element = new Element("roof");
+        Element = new Element<T>("roof");
         element.add(Element);
         Logger.getLogger("Starting Building: " + element.toString());
 
         return Element;
     }
 
+    ValidMaterialList<ValidMaterialList> validMaterialList = (List<ValidMaterialList> materials) -> {
+        materials.forEach(project -> {
+            logger.info("material name: " + materials);
+        });
+    };
+
+    ValidElement<Element> element = (List<Element> Element) -> {
+        Element.forEach(project -> {
+            logger.info("element name: " + Element);
+        });
+    };
+
+    ValidBuilderList<ValidBuilderList> validBuilderList = (List<ValidBuilderList> builders) -> {
+        builders.forEach(project -> {
+            logger.info("builders: " + builders);
+        });
+    };
+
+    List<String> allElements = Arrays.asList("wall", "room", "roof", "basement", "floor"); {
+    Stream<String> stream = allElements.stream();
+    }
+    List<String> allBuilders = Arrays.asList("wall", "room", "roof", "basement", "floor"); {
+        Stream<String> stream = allBuilders.stream();
+    }
+    List<String> allMaterials = Arrays.asList("wall", "room", "roof", "basement", "floor");{
+        Stream<String> stream = allMaterials.stream();
+    }
 }

@@ -4,7 +4,7 @@ import com.solvd.building.interfaces.IRoof;
 import com.solvd.building.materials.Metal;
 import com.solvd.building.materials.Wood;
 
-public class Roof extends Element implements IRoof {
+public class Roof extends Element<T> implements IRoof {
     private Wood wood;
     private Metal metal;
     private String durability;

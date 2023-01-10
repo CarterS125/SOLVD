@@ -7,7 +7,7 @@ import com.solvd.building.exceptions.BuildingMaterialNotFoundException;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-public class Element {
+public class Element<T> {
     private int height;
     private int width;
     private int weight;
@@ -68,7 +68,7 @@ public class Element {
         this.amount = amount;
     }
 
-    public void add(Element element) {
+    public void add(Element<T> element) {
     }
 
     public void processBuilding(Building data, String element) throws BuildingMaterialNotFoundException, BuilderNotAvailableException {

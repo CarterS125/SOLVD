@@ -1,8 +1,5 @@
 package com.solvd.building.building;
 
-import com.solvd.building.LambdaInterfaces.IBuilderList;
-import com.solvd.building.LambdaInterfaces.IElement;
-import com.solvd.building.LambdaInterfaces.IValidMaterialList;
 import com.solvd.building.buildingstaff.*;
 import com.solvd.building.elements.*;
 import com.solvd.building.exceptions.InvalidBuilderSelection;
@@ -15,15 +12,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-public class Building {
+public class Building<T> {
     Logger logger = Logger.getLogger(Building.class.getName());
-    public static ArrayList<Element> getBuilderList;
+    public ArrayList<Element<T>> getBuilderList;
     public static HashMap<String, Building> getApprovedElements;
     public Building data;
     public Building next;
     private String name;
     private ArrayList<Builder> builders;
-    private HashMap<String, Element> approvedElement;
+    private HashMap<String, Element<T>> approvedElement;
 
     public Building(String name) throws InvalidMaterialChoice, InvalidToolSelection, InvalidElementSelection, InvalidBuilderSelection {
         this.name = name;
@@ -59,18 +56,16 @@ public class Building {
 
         TrimGuy trimGuy = new TrimGuy();
         builderList.add(trimGuy);
-        IBuilderList IbuilderList = (builder) -> logger.info("These are all the builders required to make the building");
         return builderList;
     }
 
-    public HashMap<String, Element> initializeApprovedElements() throws InvalidElementSelection, InvalidMaterialChoice, InvalidBuilderSelection, InvalidToolSelection {
-        HashMap<String, Element> approvedElements = new HashMap<>();
-        approvedElements.put("wall", new Wall(4,"front side", new Wood(), new Paint(), new Drywall()));
-        approvedElements.put("floor", new Floor("modern", 10, 10, new Concrete(), new Drywall(), new Paint(), new Wiring()));
-        approvedElements.put("roof", new Roof(new Wood(), new Metal(), "very strong", "ocean view", 25));
-        approvedElements.put("room", new Room("modern", "ocean side", 5, 2500, "ocean view"));
-        approvedElements.put("basement", new Basement(200, new Concrete(), 20, 2500000, 4, "very strong"));
-        IElement Ielement = (element) -> logger.info("these are all the required elements to make sure that the building is built correctly ");
+    public HashMap<String, Element<T>> initializeApprovedElements() throws InvalidElementSelection, InvalidMaterialChoice, InvalidBuilderSelection, InvalidToolSelection {
+        HashMap<String, Element<T>> approvedElements = new HashMap<>();
+        approvedElements.put("wall", (Element<T>) new Wall(4,"front side", new Wood(), new Paint(), new Drywall()));
+        approvedElements.put("floor", (Element<T>) new Floor("modern", 10, 10, new Concrete(), new Drywall(), new Paint(), new Wiring()));
+        approvedElements.put("roof", (Element<T>) new Roof(new Wood(), new Metal(), "very strong", "ocean view", 25));
+        approvedElements.put("room", (Element<T>) new Room("modern", "ocean side", 5, 2500, "ocean view"));
+        approvedElements.put("basement", (Element<T>) new Basement(200, new Concrete(), 20, 2500000, 4, "very strong"));
         return approvedElements;
 
     }
@@ -89,7 +84,6 @@ public class Building {
         validMaterialList.add("trim");
         validMaterialList.add("wiring");
         validMaterialList.add("wood");
-        IValidMaterialList IvalidMaterialList = (materials) -> logger.info("these are all the needed materials");
         return validMaterialList;
     }
 
@@ -103,7 +97,6 @@ public class Building {
         validBuilderList.add("painter");
         validBuilderList.add("plumber");
         validBuilderList.add("trim guy");
-        validBuilderList.stream().forEach(validBuilderList1 -> validBuilderList.add(validBuilderList1));
         return validBuilderList;
     }
 
@@ -121,7 +114,6 @@ public class Building {
         validToolList.add("planting tool");
         validToolList.add("trim nail gun");
         validToolList.add("wire cutter");
-        validToolList.stream().forEach(validTooList -> validToolList.add(validTooList));
         return validToolList;
     }
 
@@ -132,8 +124,6 @@ public class Building {
             validElementList.add("room");
             validElementList.add("roof");
             validElementList.add("basement");
-            validElementList.stream().forEach(validElementList1 -> validElementList.add(validElementList1));
-
         return validElementList;
     }
 }

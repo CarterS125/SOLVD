@@ -5,7 +5,7 @@ import com.solvd.building.materials.Drywall;
 import com.solvd.building.materials.Paint;
 import com.solvd.building.materials.Wood;
 
-public class Wall extends Element implements IWall {
+public class Wall extends Element<T> implements IWall {
     private String sideOfBuilding;
     private int amountOfWindows;
     private Wood wood;
