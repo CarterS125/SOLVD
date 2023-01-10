@@ -140,10 +140,10 @@ public class Runner {
     List<String> allElements = Arrays.asList("wall", "room", "roof", "basement", "floor"); {
     Stream<String> stream = allElements.stream();
     }
-    List<String> allBuilders = Arrays.asList("wall", "room", "roof", "basement", "floor"); {
+    List<String> allBuilders = Arrays.asList("cabinet guys", "concrete guys", "drywalller", "electricain", "electrican", "landscper", "painter", "plumber", "trim guy"); {
         Stream<String> stream = allBuilders.stream();
     }
-    List<String> allMaterials = Arrays.asList("wall", "room", "roof", "basement", "floor");{
+    List<String> allMaterials = Arrays.asList("cabinets", "concrete", "drywall", "glass", "grass and plant", "metal", "paint", "piping", "tile", "trim", "wiring", "wood");{
         Stream<String> stream = allMaterials.stream();
     }
 }
