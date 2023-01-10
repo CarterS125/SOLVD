@@ -137,13 +137,13 @@ public class Runner {
         });
     };
 
-    List<String> allElements = Arrays.asList("wall", "room", "roof", "basement", "floor"); {
-    Stream<String> stream = allElements.stream();
+    List<String> buildingRentPrice = Arrays.asList("Luxury - 2500", "normal rent - 200", "penthouse rent - 5000"); {
+    Stream<String> stream = buildingRentPrice.stream();
     }
-    List<String> allBuilders = Arrays.asList("cabinet guys", "concrete guys", "drywalller", "electricain", "electrican", "landscper", "painter", "plumber", "trim guy"); {
-        Stream<String> stream = allBuilders.stream();
+    List<String> allTools = Arrays.asList("bulldozer", "cabinet drill", "concrete pump", "crane", "drywall drill", "excavtor", "general tool", "paintbrush - paint roller", "pipe cutter", "planting tool", "trim nail gun", "wire cutter"); {
+        Stream<String> stream = allTools.stream();
     }
-    List<String> allMaterials = Arrays.asList("cabinets", "concrete", "drywall", "glass", "grass and plant", "metal", "paint", "piping", "tile", "trim", "wiring", "wood");{
-        Stream<String> stream = allMaterials.stream();
+    List<String> totalPrice = Arrays.asList("estimated price - 50 million dollars", "acutal price at end of build 67 million dollars");{
+        Stream<String> stream = totalPrice.stream();
     }
 }
