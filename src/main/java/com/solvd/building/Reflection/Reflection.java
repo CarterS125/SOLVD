@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 public class Reflection {
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
+    public static <T> void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException {
         Logger logger = Logger.getLogger(Runner.class.getName());
 
         Class<?> buildingClass = Class.forName("main.java.com.solvd.building.building");

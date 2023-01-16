@@ -6,7 +6,8 @@ import com.solvd.building.materials.Drywall;
 import com.solvd.building.materials.Paint;
 import com.solvd.building.materials.Wiring;
 
-public class Floor extends Element<T> implements IFloor {
+public class Floor<T> extends Element<T> implements IFloor {
+    public static final int GROUND = 2 ;
     private String design;
     private int numOfFloors;
     private int numOfRoomsOnEachFloor;

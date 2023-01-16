@@ -3,13 +3,13 @@ package com.solvd.building.building;
 import com.solvd.building.LambdaInterfaces.ValidBuilderList;
 import com.solvd.building.LambdaInterfaces.ValidElement;
 import com.solvd.building.LambdaInterfaces.ValidMaterialList;
-import com.solvd.building.buildingstaff.Builder;
+import com.solvd.building.buildingtools.BuildingTool;
 import com.solvd.building.elements.Element;
 import com.solvd.building.exceptions.*;
-import com.solvd.building.materials.BuildingMaterial;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Runner {
@@ -117,33 +117,24 @@ public class Runner {
         Logger.getLogger("Starting Building: " + element.toString());
 
         return Element;
-    }
-
-    ValidMaterialList<ValidMaterialList> validMaterialList = (List<ValidMaterialList> materials) -> {
-        materials.forEach(project -> {
-            logger.info("material name: " + materials);
-        });
     };
 
-    ValidElement<Element> element = (List<Element> Element) -> {
-        Element.forEach(project -> {
-            logger.info("element name: " + Element);
-        });
-    };
+        ValidMaterialList<ValidMaterialList> validMaterialList = (List<ValidMaterialList> materials) -> {
+            materials.forEach(project -> {
+                logger.info("material name: " + materials);
+            });
+        };
 
-    ValidBuilderList<ValidBuilderList> validBuilderList = (List<ValidBuilderList> builders) -> {
-        builders.forEach(project -> {
-            logger.info("builders: " + builders);
-        });
-    };
+        ValidElement<Element> element = (List<Element> Element) -> {
+            Element.forEach(project -> {
+                logger.info("element name: " + Element);
+            });
+        };
 
-    List<String> buildingRentPrice = Arrays.asList("Luxury - 2500", "normal rent - 200", "penthouse rent - 5000"); {
-    Stream<String> stream = buildingRentPrice.stream();
-    }
-    List<String> allTools = Arrays.asList("bulldozer", "cabinet drill", "concrete pump", "crane", "drywall drill", "excavtor", "general tool", "paintbrush - paint roller", "pipe cutter", "planting tool", "trim nail gun", "wire cutter"); {
-        Stream<String> stream = allTools.stream();
-    }
-    List<String> totalPrice = Arrays.asList("estimated price - 50 million dollars", "acutal price at end of build 67 million dollars");{
-        Stream<String> stream = totalPrice.stream();
-    }
+        ValidBuilderList<ValidBuilderList> validBuilderList = (List<ValidBuilderList> builders) -> {
+            builders.forEach(project -> {
+                logger.info("builders: " + builders);
+            });
+        };
+
 }

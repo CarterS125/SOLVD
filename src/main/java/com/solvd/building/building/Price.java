@@ -22,4 +22,8 @@ public enum Price {
     public String information() {
         return information();
     }
+
+    public double getPrice() {
+        return 0;
+    }
 }

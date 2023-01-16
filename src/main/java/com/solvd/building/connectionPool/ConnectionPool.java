@@ -5,44 +5,43 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
+    private static ConnectionPool instance;
+    private static final Object lock = new Object();
+    private static volatile boolean initialized = false;
 
-    private BlockingQueue<Connection> pool;
-    private int maxSize;
-    private int currentSize;
+    private BlockingQueue<Connection> connections;
 
-    public ConnectionPool(int initialSize, int maxSize) {
-        pool = new LinkedBlockingQueue<>();
-        this.maxSize = maxSize;
-        currentSize = initialSize;
-        for (int i = 0; i < initialSize; i++) {
-            Connection connection = createConnection();
-            pool.offer(connection);
+    private ConnectionPool() {
+        // Initialize the connection queue
+        connections = new LinkedBlockingQueue<>();
+    }
+
+    public static ConnectionPool getInstance() {
+        if (!initialized) {
+            synchronized (lock) {
+                if (!initialized) {
+                    instance = new ConnectionPool();
+                    initialized = true;
+                }
+            }
         }
+        return instance;
     }
 
     public Connection getConnection() throws InterruptedException {
-        if (pool.isEmpty() && currentSize < maxSize) {
-            addConnections(1);
-        }
-        return pool.take();
+        // Code to return a connection from the pool
+        // If no connection is available, wait until one becomes available
+        return connections.take();
     }
 
-    public void releaseConnection(Connection connection) throws InterruptedException {
-        pool.put(connection);
-    }
-
-    public synchronized void addConnections(int numConnections) {
-        if (currentSize + numConnections > maxSize) {
-            numConnections = maxSize - currentSize;
-        }
-        for (int i = 0; i < numConnections; i++) {
-            Connection connection = createConnection();
-            pool.offer(connection);
-        }
-        currentSize += numConnections;
+    public void releaseConnection(Connection connection) {
+        // Code to release a connection back to the pool
+        connections.offer(connection);
     }
 
     private Connection createConnection() {
+        // Code to create a new connection
         return null;
     }
 }
+

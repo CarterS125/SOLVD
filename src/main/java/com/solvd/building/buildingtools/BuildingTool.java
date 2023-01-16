@@ -1,6 +1,6 @@
 package com.solvd.building.buildingtools;
 
-public abstract class BuildingTool {
+public class BuildingTool {
     private String tool;
 
     public BuildingTool(String tool) {
@@ -16,5 +16,13 @@ public abstract class BuildingTool {
 
     public void setTools(String tool) {
         this.tool = tool;
+    }
+
+    public double getWeight() {
+        return 0;
+    }
+
+    public Object getType() {
+        return null;
     }
 }

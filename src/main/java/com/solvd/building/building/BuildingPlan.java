@@ -1,77 +1,58 @@
 package com.solvd.building.building;
 
 import com.solvd.building.elements.Floor;
-import com.solvd.building.elements.Room;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class BuildingPlan {
+
+    static Logger logger = Logger.getLogger(BuildingPlan.class.getName());
     private String architecture;
     private int squareFeet;
-    private Room rooms;
+    private int rooms;
     private String color;
-    private Floor Floor;
-
+    private Floor floor;
     private int capacity;
 
-    public void BuildingPlan(String architecture, int squareFeet, Room rooms, Floor floors, String color, int capacity) {
+    public BuildingPlan(String architecture, int squareFeet, int rooms, String color) {
         this.architecture = architecture;
-        this.color = color;
-        this.Floor = Floor;
-        this.rooms = rooms;
         this.squareFeet = squareFeet;
+        this.rooms = rooms;
+        this.color = color;
+        this.floor = floor;
         this.capacity = capacity;
-    }
 
-    public BuildingPlan(){}
+        List<BuildingPlan> buildings = Arrays.asList(
+                new BuildingPlan("Contemporary", 2000, 4, "Blue"),
+                new BuildingPlan("Mediterranean", 1500, 3, "White"),
+                new BuildingPlan("Victorian", 2500, 5, "Yellow"),
+                new BuildingPlan("Colonial", 3000, 6, "Green")
+        );
+
+        List<BuildingPlan> filteredBuildings = buildings.stream()
+                .filter(b -> b.getArchitecture().equals("Contemporary") && b.getSquareFeet() > 2000 && b.getRooms() > 4)
+                .sorted((b1, b2) -> Integer.compare(b2.getCapacity(), b1.getCapacity()))
+                .collect(Collectors.toList());
+        logger.info("Filtered buildings sorted by capacity: " + filteredBuildings);
+    }
 
     public String getArchitecture() {
         return architecture;
-    }
-
-    public void setArchitecture(String architecture) {
-        architecture = architecture;
     }
 
     public int getSquareFeet() {
         return squareFeet;
     }
 
-    public void setSquareFeet(int squareFeet) {
-        squareFeet = squareFeet;
-    }
-
-    public Floor getFloor() {
-        return Floor;
-    }
-
-    public void setFloors(Floor floor) {
-        Floor = floor;
-    }
-
-    public Room getRooms() {
+    public int getRooms() {
         return rooms;
-    }
-
-    public void setRooms(Room rooms) {
-        this.rooms = rooms;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        color = color;
-    }
-
-    public void setFloor(com.solvd.building.elements.Floor floor) {
-        Floor = floor;
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 }
